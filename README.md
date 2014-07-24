@@ -32,13 +32,13 @@ Hard Way
       twobytes_SerialCommander(word startWord);
       
 - in setup()
-  - Add commands;
+  - Add commands:
       ```
       addCommand("COMMAND_NAME", handlerName);
       ```
       
 - in loop()
-  - Call the Serial reader; It will read a byte at a time so you can do other things in between.
+  - Call the Serial reader to read a byte:
       ```
       readSerialLooper()
       ```
@@ -53,6 +53,7 @@ Optional
       ```
       overrideTerminator(word newTerminator);
       ```
+
       NOTE: The default terminator is a newline (hex chars 0x0D, 0x0A), 
       usually achieved by pressing the enter key on your keyboard.
 
