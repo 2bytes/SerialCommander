@@ -33,12 +33,14 @@ Hard Way
       
 - in setup()
   - Add commands:
+
       ```
       addCommand("COMMAND_NAME", handlerName);
       ```
       
 - in loop()
   - Call the Serial reader to read a byte:
+
       ```
       readSerialLooper()
       ```
@@ -46,10 +48,12 @@ Hard Way
 Optional
 --------
 - Add default handler:
+
       ```
       setDefaultHandler(someFunctionHandlerForUnknownCommands);
       ```
 - Override command terminator:
+
       ```
       overrideTerminator(word newTerminator);
       ```
