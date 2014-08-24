@@ -27,7 +27,7 @@ using namespace std;
 #define ACK		"ACK"
 #define NACK	"NACK"
 
-twobytes_SerialCommander::twobytes_SerialCommander(word commandStart, boolean doAck = false) : cmdCount(0), cmdStarted(false), ic(0), ce(word(0x0D, 0x0A))/*newline*/
+twobytes_SerialCommander::twobytes_SerialCommander(word commandStart, boolean doAck = false) : cmdCount(0), defaultHandler(0), cmdStarted(false), ic(0), ce(word(0x0D, 0x0A))/*newline*/
 {
 	cs = commandStart;
 	ack = doAck;
@@ -114,8 +114,15 @@ void twobytes_SerialCommander::handleCommand(char* cmdToken)
 		}
 	}
 	
-	Serial.println(NACK);
-	(*defaultHandler)(cmdToken);
+	if(ack)
+	{
+		Serial.println(NACK);
+	}
+	
+	if(defaultHandler != NULL)
+	{
+		(*defaultHandler)(cmdToken);
+	}
 }
 
 int ic = 0;
