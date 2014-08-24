@@ -60,7 +60,10 @@ Optional
 
       NOTE: The default terminator is a newline (hex chars 0x0D, 0x0A), 
       usually achieved by pressing the enter key on your keyboard.
+      
+- ACK/NCK:
 
+      The constructor of SerialCommander takes an optional second parameter (boolean) to enable ACK/NACK responses. It is            default false, and ACK/NACK responses are not sent.
 
 Bugs
 ----
