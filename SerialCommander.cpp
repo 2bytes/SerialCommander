@@ -24,9 +24,13 @@ using namespace std;
 
 #define DEBUG false
 
-twobytes_SerialCommander::twobytes_SerialCommander(word commandStart) : cmdCount(0), cmdStarted(false), ic(0), ce(word(0x0D, 0x0A)) // newline
+#define ACK		"ACK"
+#define NACK	"NACK"
+
+twobytes_SerialCommander::twobytes_SerialCommander(word commandStart, boolean doAck = false) : cmdCount(0), cmdStarted(false), ic(0), ce(word(0x0D, 0x0A))/*newline*/
 {
 	cs = commandStart;
+	ack = doAck;
 }
 
 twobytes_SerialCommander::~twobytes_SerialCommander()
@@ -101,11 +105,16 @@ void twobytes_SerialCommander::handleCommand(char* cmdToken)
 				Serial.print("\n\nMatched Command: ");Serial.println(CommandList[i].command);
 			}
 			
-			(*CommandList[i].function)(cmdToken);
+			(*CommandList[i].function)(cmdToken+strlen(CommandList[i].command)); // Cut command string off the start first.
+			if(ack)
+			{
+				Serial.println(ACK);
+			}
 			return;
 		}
 	}
 	
+	Serial.println(NACK);
 	(*defaultHandler)(cmdToken);
 }
 
@@ -141,6 +150,11 @@ void twobytes_SerialCommander::readSerialLooper()
 			cmdStarted = false;
 			
 			handleCommand((char*)ib);
+			
+			for(int i = 0; i < INPUT_BUFFER_SIZE; i++)
+			{
+				ib[i] = 0x00;
+			}
 		}
 		else
 		{

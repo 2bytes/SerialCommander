@@ -35,7 +35,7 @@
 class twobytes_SerialCommander 
 {
 	public:
-		twobytes_SerialCommander(word);
+		twobytes_SerialCommander(word, boolean);
 		~twobytes_SerialCommander();
 		bool addCommand(char*,  void (*function)(char*));
 		void setDefaultHandler(void (*function)(char*));
@@ -73,6 +73,8 @@ class twobytes_SerialCommander
 		word cs;
 		/* Command end word indicates the end of an incoming command */
 		word ce;
+		/* Whether not ACK/NACK bytes should be returned on successful/insuccessful command read*/
+		boolean ack;
 };
 
 #endif // TWOBYTES_SERIAL_COMMANDER
