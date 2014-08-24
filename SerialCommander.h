@@ -35,7 +35,7 @@
 class twobytes_SerialCommander 
 {
 	public:
-		twobytes_SerialCommander(word, boolean);
+		twobytes_SerialCommander(word, boolean = false);
 		~twobytes_SerialCommander();
 		bool addCommand(char*,  void (*function)(char*));
 		void setDefaultHandler(void (*function)(char*));
